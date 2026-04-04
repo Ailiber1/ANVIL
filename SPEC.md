@@ -35,13 +35,20 @@
 
 ## 2. デザインコンセプト
 
-### 参考サイト3つ（各サイトから取り入れる要素）
+### 参考サイト（日本）
 
-| サイト | 取り入れる要素 |
-|--------|--------------|
-| **comme.fit** | セリフ体英字の大きなあしらい / 余白の贅沢な使い方 / スムーズなスクロール体験 |
-| **BEYOND** | モノトーン+1色アクセントの配色 / 左右交互の画像・テキスト配置 / 4ステップフロー図 / CTA配置の巧みさ |
-| **Puretec Fitness** | ダーク背景×ゴールドのプレミアム感 / フルスクリーンヒーロー画像 / 大胆なタイポグラフィ |
+| サイト | URL | 取り入れる要素 |
+|--------|-----|--------------|
+| **comme.fit** | https://comme.fit/ | セリフ体英字の大きなあしらい / 余白の贅沢な使い方 / スムーズなスクロール体験 |
+| **BEYOND** | https://beyond-gym.com/ | モノトーン+1色アクセントの配色 / 左右交互の画像・テキスト配置 / 4ステップフロー図 / CTA配置の巧みさ |
+
+### 参考サイト（海外・アワード受賞）
+
+| サイト | URL | 受賞 | 取り入れる要素 |
+|--------|-----|------|--------------|
+| **Puretec Fitness** | https://www.awwwards.com/sites/puretec-fitness | Awwwards Honorable Mention + CSS Design Awards | **ANVILに最も近いデザイン。** 黒`#000`×ゴールド`#ECD06F`のプレミアム配色 / フルスクリーンヒーロー画像 / 大胆なタイポグラフィ / ベクターグラフィックス活用 |
+| **Fitonist** | https://www.awwwards.com/sites/fitonist | Awwwards Site of the Day | 黒×パープルの2色のみで構築する極限配色 / スクロール連動のマイクロインタラクション / アプリUIをWebに展開する設計手法 |
+| **Fenriz Gym** | https://www.awwwards.com/sites/fenriz-gym-homepage | Awwwards Nominee | 統一フォトフィルターで異なる素材を一体感あるビジュアルに統合する手法（ANVILの画像オーバーレイ設計に参考）/ ダイナミックビジュアルでジムのエネルギーを表現 |
 
 ### Tone
 **powerful-refinement（力強さの中にある洗練）**
