@@ -329,31 +329,64 @@ body {
   animation: hero-line2 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Hero headline gradient text — settled gold-white gradient */
-.hero-title-gradient {
-  background: linear-gradient(
-    135deg,
-    #FFFFFF 0%,
-    #F0E6D0 25%,
-    #C9A96E 50%,
-    #F0E6D0 75%,
-    #FFFFFF 100%
-  );
-  background-size: 300% auto;
-  background-position: 0% center;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* ============================================
+   HERO TITLE — CINEMATIC MASK + FLICKER SYSTEM
+   ============================================ */
+
+/* Mask reveal container — hides text below */
+.title-mask {
+  overflow: hidden;
+  display: block;
 }
 
-@keyframes title-shimmer {
-  0% { background-position: 0% center; }
-  50% { background-position: 100% center; }
-  100% { background-position: 0% center; }
+/* Slide up from behind mask */
+@keyframes title-slide-up {
+  0% { transform: translateY(110%); }
+  100% { transform: translateY(0); }
 }
-.hero-title-shimmer {
-  animation: title-shimmer 4s ease-in-out 2.5s 1 forwards;
-  /* Ends at 0% = back to initial white-gold gradient */
+.title-slide {
+  display: block;
+  transform: translateY(110%);
+  animation: title-slide-up 0.9s cubic-bezier(0.16, 1, 0.35, 1) forwards;
+}
+
+/* Flicker-in for each character — neon sign effect */
+@keyframes flicker-in {
+  0%   { opacity: 0; text-shadow: none; }
+  10%  { opacity: 1; text-shadow: 0 0 20px rgba(201,169,110,0.6); }
+  20%  { opacity: 0; text-shadow: none; }
+  40%  { opacity: 1; text-shadow: 0 0 30px rgba(201,169,110,0.4); }
+  50%  { opacity: 0.2; text-shadow: none; }
+  70%  { opacity: 1; text-shadow: 0 0 15px rgba(201,169,110,0.3); }
+  100% { opacity: 1; text-shadow: 0 0 10px rgba(201,169,110,0.15); }
+}
+.flicker-char {
+  opacity: 0;
+  display: inline-block;
+  animation: flicker-in 0.5s steps(4, end) forwards;
+}
+
+/* Impact stamp — final character lands with weight */
+@keyframes stamp-in {
+  0% { opacity: 0; transform: scale(1.8); filter: blur(6px); }
+  50% { opacity: 1; transform: scale(0.97); filter: blur(0); }
+  70% { transform: scale(1.02); }
+  100% { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+.stamp-char {
+  opacity: 0;
+  display: inline-block;
+  animation: stamp-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Gold flash behind text on impact */
+@keyframes gold-flash {
+  0% { opacity: 0; transform: scaleX(0.3); }
+  30% { opacity: 0.25; transform: scaleX(1.2); }
+  100% { opacity: 0; transform: scaleX(1.5); }
+}
+.gold-flash {
+  animation: gold-flash 0.5s ease-out forwards;
 }
 
 /* Impact flash — brief white glow behind text on slam */
