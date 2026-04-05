@@ -1,7 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 
+/**
+ * Basic scroll-triggered animation (adds 'visible' class)
+ */
 export function useScrollAnimation<T extends HTMLElement>(
   threshold = 0.15
 ) {
@@ -28,6 +31,45 @@ export function useScrollAnimation<T extends HTMLElement>(
   return ref;
 }
 
+/**
+ * Stagger children animation — each child gets 'visible' with delay
+ */
+export function useStaggerAnimation<T extends HTMLElement>(
+  childSelector: string,
+  staggerDelay = 0.12,
+  threshold = 0.15
+) {
+  const ref = useRef<T>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          const children = el.querySelectorAll(childSelector);
+          children.forEach((child, i) => {
+            setTimeout(() => {
+              child.classList.add("visible");
+            }, i * staggerDelay * 1000);
+          });
+          observer.unobserve(el);
+        }
+      },
+      { threshold }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [childSelector, staggerDelay, threshold]);
+
+  return ref;
+}
+
+/**
+ * Count-up animation triggered on scroll
+ */
 export function useCountUp(
   end: number,
   duration = 2000,
@@ -75,4 +117,52 @@ export function useCountUp(
   }, [end, duration, decimals]);
 
   return ref;
+}
+
+/**
+ * Parallax-like scroll effect (CSS transform based)
+ */
+export function useParallax<T extends HTMLElement>(speed = 0.15) {
+  const ref = useRef<T>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const rect = el.getBoundingClientRect();
+          const windowH = window.innerHeight;
+          if (rect.top < windowH && rect.bottom > 0) {
+            const center = rect.top + rect.height / 2;
+            const offset = (center - windowH / 2) * speed;
+            el.style.transform = `translateY(${offset}px)`;
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [speed]);
+
+  return ref;
+}
+
+/**
+ * Text split animation — wraps each character in a span
+ */
+export function useSplitText(text: string, visible: boolean, baseDelay = 0) {
+  return text.split("").map((char, i) => ({
+    char: char === " " ? "\u00A0" : char,
+    style: {
+      transitionDelay: `${baseDelay + i * 0.04}s`,
+    },
+    className: `char-reveal ${visible ? "visible" : ""}`,
+  }));
 }

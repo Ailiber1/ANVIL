@@ -30,13 +30,15 @@ export default function Price() {
   const titleRef = useScrollAnimation<HTMLDivElement>();
 
   return (
-    <section id="price" className="bg-charcoal py-[120px]">
+    <section id="price" className="bg-charcoal py-[140px] md:py-[180px]">
       <div className="max-w-[1200px] mx-auto px-6">
-        <div ref={titleRef} className="fade-in-up text-center mb-16">
-          <h2 className="font-[family-name:var(--font-cormorant)] text-3xl md:text-4xl text-gold tracking-[0.1em]">
+        <div ref={titleRef} className="fade-in-up text-center mb-20">
+          <p className="font-[family-name:var(--font-cormorant)] text-gold/40 text-[11px] tracking-[0.5em] uppercase mb-4">
+            Investment
+          </p>
+          <h2 className="font-[family-name:var(--font-cormorant)] text-[2rem] md:text-[2.8rem] text-gold tracking-[0.15em]">
             PRICE
           </h2>
-          <p className="text-warmgray text-sm mt-4">料金プラン</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
@@ -48,10 +50,10 @@ export default function Price() {
         {/* Enrollment fee note */}
         <FeeNote />
 
-        <div className="text-center mt-10">
+        <div className="text-center mt-12">
           <a
             href="/contact"
-            className="inline-block bg-gold text-obsidian font-medium px-10 py-4 text-sm tracking-[0.05em] hover:bg-[#b8963f] transition-colors duration-300"
+            className="inline-block btn-shimmer text-obsidian font-medium px-12 py-4 text-[13px] tracking-[0.08em] hover:shadow-[0_0_40px_rgba(201,169,110,0.2)] transition-shadow duration-500"
           >
             まずは無料カウンセリングから
           </a>
@@ -64,10 +66,10 @@ export default function Price() {
 function FeeNote() {
   const ref = useScrollAnimation<HTMLDivElement>();
   return (
-    <div ref={ref} className="fade-in-up text-center mt-12">
-      <p className="text-warmgray text-sm">
+    <div ref={ref} className="fade-in-up text-center mt-14">
+      <p className="text-warmgray text-[13px]">
         入会金{" "}
-        <span className="text-offwhite line-through">¥30,000</span>
+        <span className="text-offwhite/60 line-through">¥30,000</span>
         <span className="text-gold font-medium ml-3">
           → 体験当日のご入会で ¥0
         </span>
@@ -82,40 +84,40 @@ function PlanCard({ plan, index }: { plan: typeof PLANS[0]; index: number }) {
   return (
     <div
       ref={ref}
-      className={`fade-in-up relative p-8 md:p-10 ${
+      className={`fade-in-up group relative p-8 md:p-10 transition-all duration-500 hover:translate-y-[-4px] ${
         plan.recommended
-          ? "border-2 border-gold bg-obsidian"
-          : "border border-gold/20 bg-obsidian"
+          ? "border-2 border-gold bg-obsidian hover:shadow-[0_0_60px_rgba(201,169,110,0.08)]"
+          : "border border-gold/15 bg-obsidian hover:border-gold/40"
       }`}
       style={{ transitionDelay: `${index * 0.15}s` }}
     >
       {plan.recommended && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gold text-obsidian text-[10px] font-medium px-4 py-1 tracking-[0.1em]">
-          RECOMMENDED
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gold text-obsidian text-[9px] font-medium px-5 py-1 tracking-[0.15em] uppercase">
+          Recommended
         </div>
       )}
 
-      <h3 className="font-[family-name:var(--font-cormorant)] text-gold text-xl tracking-[0.15em] text-center">
+      <h3 className="font-[family-name:var(--font-cormorant)] text-gold text-[1.2rem] tracking-[0.2em] text-center">
         {plan.name}
       </h3>
-      <p className="text-warmgray text-xs text-center mt-1 mb-6">
+      <p className="text-warmgray/50 text-[11px] text-center mt-1 mb-8">
         {plan.sessions}
       </p>
 
-      <div className="text-center mb-8">
-        <span className="text-offwhite text-xs">¥</span>
-        <span className="font-[family-name:var(--font-cormorant)] text-offwhite text-4xl md:text-5xl font-light">
+      <div className="text-center mb-10">
+        <span className="text-offwhite/60 text-[11px]">¥</span>
+        <span className="font-[family-name:var(--font-cormorant)] text-offwhite text-[2.8rem] md:text-[3.5rem] font-light tracking-[0.02em]">
           {plan.price}
         </span>
-        <span className="text-warmgray text-xs ml-1">/月（税別）</span>
+        <span className="text-warmgray/50 text-[11px] ml-1">/月（税別）</span>
       </div>
 
-      <div className="w-full h-px bg-gold/20 mb-6" />
+      <div className="w-full h-px bg-gold/15 mb-8" />
 
-      <ul className="space-y-3">
+      <ul className="space-y-4">
         {plan.features.map((feature, i) => (
-          <li key={i} className="flex items-start gap-3 text-sm text-warmgray">
-            <span className="text-gold mt-0.5 shrink-0">―</span>
+          <li key={i} className="flex items-start gap-3 text-[13px] text-warmgray/80">
+            <span className="text-gold/50 mt-0.5 shrink-0 text-[10px]">&#9642;</span>
             {feature}
           </li>
         ))}

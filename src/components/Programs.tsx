@@ -31,21 +31,20 @@ const PROGRAMS = [
 ];
 
 function ProgramItem({ program, index }: { program: typeof PROGRAMS[0]; index: number }) {
-  const ref = useScrollAnimation<HTMLDivElement>();
+  const imgRef = useScrollAnimation<HTMLDivElement>(0.15);
+  const textRef = useScrollAnimation<HTMLDivElement>(0.15);
   const isReversed = index % 2 === 1;
 
   return (
     <div
-      ref={ref}
-      className={`fade-in-up grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center ${
-        index > 0 ? "mt-16 md:mt-24" : ""
+      className={`grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center ${
+        index > 0 ? "mt-20 md:mt-32" : ""
       }`}
     >
-      {/* Image */}
+      {/* Image — alternating clip direction */}
       <div
-        className={`relative h-[300px] md:h-[400px] overflow-hidden ${
-          isReversed ? "md:order-2" : ""
-        }`}
+        ref={imgRef}
+        className={`${isReversed ? "reveal-image-rtl md:order-2" : "reveal-image"} relative h-[350px] md:h-[500px] img-hover-zoom`}
       >
         <Image
           src={program.image}
@@ -54,21 +53,24 @@ function ProgramItem({ program, index }: { program: typeof PROGRAMS[0]; index: n
           className="object-cover"
           sizes="(max-width: 768px) 100vw, 50vw"
         />
+        {/* Dark overlay for depth */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
       </div>
 
       {/* Text */}
-      <div className={isReversed ? "md:order-1" : ""}>
-        <span className="font-[family-name:var(--font-cormorant)] text-gold/50 text-5xl md:text-7xl font-light leading-none">
+      <div ref={textRef} className={`fade-in-up ${isReversed ? "md:order-1 md:text-right" : ""}`}>
+        <span className="font-[family-name:var(--font-cormorant)] text-gold/10 text-[5rem] md:text-[7rem] font-light leading-none block">
           {program.num}
         </span>
-        <h3 className="font-[family-name:var(--font-cormorant)] text-gold text-xl md:text-2xl tracking-[0.1em] mt-3 mb-1">
+        <h3 className="font-[family-name:var(--font-cormorant)] text-gold text-[1.3rem] md:text-[1.6rem] tracking-[0.15em] mt-2 mb-1">
           {program.title}
         </h3>
-        <p className="text-warmgray text-xs mb-4">{program.subtitle}</p>
-        <p className="text-gold text-xs md:text-sm mb-4 border-l-2 border-gold/30 pl-3">
+        <p className="text-warmgray/60 text-[11px] tracking-[0.1em] mb-6">{program.subtitle}</p>
+        <div className={`w-10 h-px bg-gold/40 mb-6 ${isReversed ? "md:ml-auto" : ""}`} />
+        <p className="text-gold/80 text-[12px] md:text-[13px] mb-5 border-l-2 border-gold/30 pl-3">
           {program.target}
         </p>
-        <p className="text-warmgray text-sm leading-[1.8]">{program.desc}</p>
+        <p className="text-warmgray text-[13px] md:text-[14px] leading-[2]">{program.desc}</p>
       </div>
     </div>
   );
@@ -78,15 +80,16 @@ export default function Programs() {
   const titleRef = useScrollAnimation<HTMLDivElement>();
 
   return (
-    <section id="program" className="bg-charcoal py-[120px]">
+    <section id="program" className="bg-charcoal py-[140px] md:py-[180px]">
       <div className="max-w-[1200px] mx-auto px-6">
-        <div ref={titleRef} className="fade-in-up text-center mb-16 md:mb-20">
-          <h2 className="font-[family-name:var(--font-cormorant)] text-3xl md:text-4xl text-gold tracking-[0.1em]">
+        <div ref={titleRef} className="fade-in-up text-center mb-20 md:mb-28">
+          <p className="font-[family-name:var(--font-cormorant)] text-gold/40 text-[11px] tracking-[0.5em] uppercase mb-4">
+            What We Offer
+          </p>
+          <h2 className="font-[family-name:var(--font-cormorant)] text-[2rem] md:text-[2.8rem] text-gold tracking-[0.15em]">
             PROGRAM
           </h2>
-          <p className="text-warmgray text-sm mt-4">
-            あなたの目的に合わせた3つのプログラム
-          </p>
+          <div className="w-8 h-px bg-gold/40 mx-auto mt-6" />
         </div>
 
         {PROGRAMS.map((program, i) => (

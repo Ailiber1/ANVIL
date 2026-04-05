@@ -27,13 +27,15 @@ export default function Voice() {
   const titleRef = useScrollAnimation<HTMLDivElement>();
 
   return (
-    <section className="bg-obsidian py-[120px]">
+    <section className="bg-obsidian py-[140px] md:py-[160px]">
       <div className="max-w-[1200px] mx-auto px-6">
-        <div ref={titleRef} className="fade-in-up text-center mb-16">
-          <h2 className="font-[family-name:var(--font-cormorant)] text-3xl md:text-4xl text-gold tracking-[0.1em]">
+        <div ref={titleRef} className="fade-in-up text-center mb-20">
+          <p className="font-[family-name:var(--font-cormorant)] text-gold/40 text-[11px] tracking-[0.5em] uppercase mb-4">
+            Testimonials
+          </p>
+          <h2 className="font-[family-name:var(--font-cormorant)] text-[2rem] md:text-[2.8rem] text-gold tracking-[0.15em]">
             VOICE
           </h2>
-          <p className="text-warmgray text-sm mt-4">お客様の声</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
@@ -52,24 +54,34 @@ function VoiceCard({ voice, index }: { voice: typeof VOICES[0]; index: number })
   return (
     <div
       ref={ref}
-      className="fade-in-up bg-charcoal border border-gold/20 p-8 md:p-10"
+      className="fade-in-up group bg-charcoal border border-gold/10 p-8 md:p-10 hover:border-gold/30 transition-all duration-500 relative overflow-hidden"
       style={{ transitionDelay: `${index * 0.15}s` }}
     >
-      <div className="flex items-center gap-4 mb-6">
-        <div className="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center">
-          <span className="font-[family-name:var(--font-cormorant)] text-gold text-sm font-semibold">
-            {voice.initial}
-          </span>
+      {/* Subtle hover glow */}
+      <div className="absolute inset-0 bg-gradient-to-b from-gold/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+      <div className="relative">
+        {/* Quote mark */}
+        <span className="font-[family-name:var(--font-cormorant)] text-gold/10 text-[4rem] font-light absolute -top-4 -left-1 leading-none select-none">
+          &ldquo;
+        </span>
+
+        <div className="flex items-center gap-4 mb-8 pt-6">
+          <div className="w-12 h-12 border border-gold/30 flex items-center justify-center">
+            <span className="font-[family-name:var(--font-cormorant)] text-gold text-[13px] font-semibold tracking-[0.05em]">
+              {voice.initial}
+            </span>
+          </div>
+          <p className="text-warmgray/60 text-[11px] tracking-[0.03em]">{voice.attr}</p>
         </div>
-        <p className="text-warmgray text-xs">{voice.attr}</p>
-      </div>
 
-      <p className="text-offwhite text-sm leading-[1.8] mb-6">
-        {voice.text}
-      </p>
+        <p className="text-offwhite/90 text-[13px] leading-[2] mb-8">
+          {voice.text}
+        </p>
 
-      <div className="border-t border-gold/20 pt-4">
-        <p className="text-gold text-xs font-medium">{voice.result}</p>
+        <div className="border-t border-gold/15 pt-5">
+          <p className="text-gold/80 text-[11px] font-medium tracking-[0.05em]">{voice.result}</p>
+        </div>
       </div>
     </div>
   );

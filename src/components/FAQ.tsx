@@ -30,13 +30,15 @@ export default function FAQ() {
   const titleRef = useScrollAnimation<HTMLDivElement>();
 
   return (
-    <section id="faq" className="bg-obsidian py-[120px]">
+    <section id="faq" className="bg-obsidian py-[140px] md:py-[160px]">
       <div className="max-w-[800px] mx-auto px-6">
-        <div ref={titleRef} className="fade-in-up text-center mb-16">
-          <h2 className="font-[family-name:var(--font-cormorant)] text-3xl md:text-4xl text-gold tracking-[0.1em]">
+        <div ref={titleRef} className="fade-in-up text-center mb-20">
+          <p className="font-[family-name:var(--font-cormorant)] text-gold/40 text-[11px] tracking-[0.5em] uppercase mb-4">
+            Questions
+          </p>
+          <h2 className="font-[family-name:var(--font-cormorant)] text-[2rem] md:text-[2.8rem] text-gold tracking-[0.15em]">
             FAQ
           </h2>
-          <p className="text-warmgray text-sm mt-4">よくあるご質問</p>
         </div>
 
         <div className="space-y-0">
@@ -56,31 +58,32 @@ function FAQItem({ faq, index }: { faq: typeof FAQS[0]; index: number }) {
   return (
     <div
       ref={ref}
-      className="fade-in-up border-b border-gold/20"
+      className="fade-in-up border-b border-gold/10 group"
       style={{ transitionDelay: `${index * 0.1}s` }}
     >
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between py-6 text-left group"
+        className="w-full flex items-center justify-between py-7 text-left"
         aria-expanded={open}
       >
-        <span className="text-offwhite text-sm md:text-base pr-4 group-hover:text-gold transition-colors duration-300">
+        <span className="text-offwhite/90 text-[13px] md:text-[14px] pr-6 group-hover:text-gold transition-colors duration-300">
           {faq.q}
         </span>
-        <span className="font-[family-name:var(--font-cormorant)] text-gold text-xl shrink-0 transition-transform duration-300"
+        <span
+          className="font-[family-name:var(--font-cormorant)] text-gold/60 text-[1.2rem] shrink-0 transition-all duration-500 group-hover:text-gold"
           style={{ transform: open ? "rotate(45deg)" : "rotate(0)" }}
         >
           +
         </span>
       </button>
       <div
-        className="overflow-hidden transition-all duration-500"
+        className="overflow-hidden transition-all duration-600 ease-out"
         style={{
           maxHeight: open ? "300px" : "0",
           opacity: open ? 1 : 0,
         }}
       >
-        <p className="text-warmgray text-sm leading-[1.8] pb-6 pl-0 md:pl-4">
+        <p className="text-warmgray/80 text-[13px] leading-[2] pb-7 pl-0 md:pl-5">
           {faq.a}
         </p>
       </div>

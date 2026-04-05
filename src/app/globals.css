@@ -20,33 +20,252 @@ body {
   overflow-x: hidden;
 }
 
-/* fade-in-up animation */
+/* ============================================
+   AWARD-LEVEL ANIMATION SYSTEM
+   ============================================ */
+
+/* --- 1. Fade in up (basic) --- */
 .fade-in-up {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(40px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .fade-in-up.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* scale-in animation for images */
+/* --- 2. Image reveal with clip-path (left to right) --- */
+.reveal-image {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.reveal-image.visible {
+  clip-path: inset(0 0 0 0);
+}
+
+/* --- 3. Image reveal right to left --- */
+.reveal-image-rtl {
+  clip-path: inset(0 0 0 100%);
+  transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.reveal-image-rtl.visible {
+  clip-path: inset(0 0 0 0);
+}
+
+/* --- 4. Image reveal bottom up --- */
+.reveal-image-up {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 1.4s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.reveal-image-up.visible {
+  clip-path: inset(0 0 0 0);
+}
+
+/* --- 5. Text reveal (line by line clip) --- */
+.text-reveal {
+  clip-path: inset(0 0 100% 0);
+  opacity: 0;
+  transition: clip-path 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s ease;
+}
+.text-reveal.visible {
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
+}
+
+/* --- 6. Scale in (zoom out effect) --- */
 .scale-in {
   opacity: 0;
-  transform: scale(1.05);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: scale(1.15);
+  transition: opacity 1.2s ease, transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .scale-in.visible {
   opacity: 1;
   transform: scale(1);
 }
 
-/* scroll indicator animation */
+/* --- 7. Slide in from left --- */
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-80px);
+  transition: opacity 0.8s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.slide-in-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* --- 8. Slide in from right --- */
+.slide-in-right {
+  opacity: 0;
+  transform: translateX(80px);
+  transition: opacity 0.8s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.slide-in-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* --- 9. Horizontal line expand --- */
+.line-expand {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.line-expand.visible {
+  transform: scaleX(1);
+}
+
+/* --- 10. Hero stagger reveal --- */
+.hero-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hero-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- 11. Character split animation --- */
+.char-reveal {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.char-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- 12. Blur reveal --- */
+.blur-reveal {
+  opacity: 0;
+  filter: blur(20px);
+  transform: translateY(20px);
+  transition: opacity 1s ease, filter 1.2s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.blur-reveal.visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+/* ============================================
+   MARQUEE
+   ============================================ */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+/* ============================================
+   SCROLL INDICATOR
+   ============================================ */
 @keyframes scroll-bounce {
   0%, 100% { transform: translateY(0); opacity: 1; }
-  50% { transform: translateY(8px); opacity: 0.5; }
+  50% { transform: translateY(10px); opacity: 0.3; }
 }
 .animate-scroll-bounce {
-  animation: scroll-bounce 2s ease-in-out infinite;
+  animation: scroll-bounce 2.5s ease-in-out infinite;
+}
+
+/* ============================================
+   HERO BACKGROUND SLOW ZOOM
+   ============================================ */
+@keyframes hero-zoom {
+  0% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+.animate-hero-zoom {
+  animation: hero-zoom 8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ============================================
+   GOLD SHIMMER ON HOVER
+   ============================================ */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.btn-shimmer {
+  background: linear-gradient(
+    110deg,
+    var(--color-gold) 0%,
+    var(--color-gold) 40%,
+    #e0c88a 50%,
+    var(--color-gold) 60%,
+    var(--color-gold) 100%
+  );
+  background-size: 200% 100%;
+}
+.btn-shimmer:hover {
+  animation: shimmer 1.5s ease forwards;
+}
+
+/* ============================================
+   MAGNETIC HOVER EFFECT FOR LINKS
+   ============================================ */
+.magnetic-hover {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.magnetic-hover:hover {
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   IMAGE PARALLAX WRAPPER
+   ============================================ */
+.parallax-img {
+  transition: transform 0.1s linear;
+  will-change: transform;
+}
+
+/* ============================================
+   SECTION DIVIDER WITH GRADIENT LINE
+   ============================================ */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-gold) 20%,
+    var(--color-gold) 80%,
+    transparent 100%
+  );
+  opacity: 0.3;
+}
+
+/* ============================================
+   CUSTOM SELECTION
+   ============================================ */
+::selection {
+  background: var(--color-gold);
+  color: var(--color-obsidian);
+}
+
+/* ============================================
+   SMOOTH IMAGE HOVER ZOOM
+   ============================================ */
+.img-hover-zoom {
+  overflow: hidden;
+}
+.img-hover-zoom img,
+.img-hover-zoom > div {
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.img-hover-zoom:hover img,
+.img-hover-zoom:hover > div {
+  transform: scale(1.05);
+}
+
+/* ============================================
+   NUMBER COUNTER GLOW
+   ============================================ */
+.counter-glow {
+  text-shadow: 0 0 40px rgba(201, 169, 110, 0.15);
 }

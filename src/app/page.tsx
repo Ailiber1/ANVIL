@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import Marquee from "@/components/Marquee";
 import Concept from "@/components/Concept";
 import Programs from "@/components/Programs";
 import Trainer from "@/components/Trainer";
@@ -21,9 +22,12 @@ export default function Home() {
         <div id="hero-section">
           <Hero />
         </div>
+        <Marquee />
         <Concept />
+        <Marquee text="BODY MAKE — CONDITION — PERFORMANCE — " className="bg-charcoal" />
         <Programs />
         <Trainer />
+        <Marquee text="STRENGTH — POSTURE — CONFIDENCE — LIFE — " />
         <Results />
         <Voice />
         <Price />
