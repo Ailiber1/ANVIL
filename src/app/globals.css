@@ -271,6 +271,17 @@ body {
 }
 
 /* ============================================
+   TOAST NOTIFICATION
+   ============================================ */
+@keyframes toast-in {
+  0% { opacity: 0; transform: translate(-50%, -10px); }
+  100% { opacity: 1; transform: translate(-50%, 0); }
+}
+.animate-toast-in {
+  animation: toast-in 0.3s ease-out forwards;
+}
+
+/* ============================================
    HERO HEADLINE — CINEMATIC IMPACT
    ============================================ */
 
@@ -316,6 +327,33 @@ body {
 .hero-line2 {
   opacity: 0;
   animation: hero-line2 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Hero headline gradient text — settled gold-white gradient */
+.hero-title-gradient {
+  background: linear-gradient(
+    135deg,
+    #FFFFFF 0%,
+    #F0E6D0 25%,
+    #C9A96E 50%,
+    #F0E6D0 75%,
+    #FFFFFF 100%
+  );
+  background-size: 300% auto;
+  background-position: 0% center;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes title-shimmer {
+  0% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+  100% { background-position: 0% center; }
+}
+.hero-title-shimmer {
+  animation: title-shimmer 4s ease-in-out 2.5s 1 forwards;
+  /* Ends at 0% = back to initial white-gold gradient */
 }
 
 /* Impact flash — brief white glow behind text on slam */
