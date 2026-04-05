@@ -46,15 +46,7 @@ export default function Price() {
         </div>
 
         {/* Enrollment fee note */}
-        <div className="fade-in-up text-center mt-12">
-          <p className="text-warmgray text-sm">
-            入会金{" "}
-            <span className="text-offwhite line-through">¥30,000</span>
-            <span className="text-gold font-medium ml-3">
-              → 体験当日のご入会で ¥0
-            </span>
-          </p>
-        </div>
+        <FeeNote />
 
         <div className="text-center mt-10">
           <a
@@ -66,6 +58,21 @@ export default function Price() {
         </div>
       </div>
     </section>
+  );
+}
+
+function FeeNote() {
+  const ref = useScrollAnimation<HTMLDivElement>();
+  return (
+    <div ref={ref} className="fade-in-up text-center mt-12">
+      <p className="text-warmgray text-sm">
+        入会金{" "}
+        <span className="text-offwhite line-through">¥30,000</span>
+        <span className="text-gold font-medium ml-3">
+          → 体験当日のご入会で ¥0
+        </span>
+      </p>
+    </div>
   );
 }
 

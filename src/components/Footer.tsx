@@ -94,7 +94,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="border-t border-warmgray/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-warmgray/60 text-[10px] tracking-[0.05em]">
-            &copy; 2024 ANVIL Personal Training Studio. All rights reserved.
+            &copy; 2025 ANVIL Personal Training Studio. All rights reserved.
           </p>
           <p className="text-warmgray/40 text-[10px]">
             ※デモサイトのため架空の事業所です
