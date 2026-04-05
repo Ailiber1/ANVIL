@@ -7,6 +7,7 @@
   --color-gold: #C9A96E;
   --color-warmgray: #9A9A9A;
   --color-deepblack: #050505;
+  --color-line-green: #06C755;
 }
 
 html {
@@ -16,4 +17,36 @@ html {
 body {
   background-color: var(--color-obsidian);
   color: var(--color-offwhite);
+  overflow-x: hidden;
+}
+
+/* fade-in-up animation */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* scale-in animation for images */
+.scale-in {
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.scale-in.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* scroll indicator animation */
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(8px); opacity: 0.5; }
+}
+.animate-scroll-bounce {
+  animation: scroll-bounce 2s ease-in-out infinite;
 }
