@@ -43,7 +43,7 @@ export default function Header() {
       >
         <div className="max-w-[1200px] mx-auto flex items-center justify-between px-6 py-5 md:py-6">
           <a
-            href="#"
+            href="/"
             className="font-[family-name:var(--font-cormorant)] text-gold text-[1.4rem] md:text-[1.6rem] font-bold tracking-[0.2em] hover:text-[#b8963f] transition-colors duration-300"
           >
             ANVIL<span className="text-gold/30">.</span>
