@@ -4,9 +4,12 @@ import { useEffect, useRef, useCallback } from "react";
 
 /**
  * Basic scroll-triggered animation (adds 'visible' class)
+ * - threshold: 0 for maximum reliability (any pixel triggers it)
+ * - rootMargin: "50px" to fire slightly before element enters viewport
+ * - fallback: forces 'visible' after timeout if observer fails
  */
 export function useScrollAnimation<T extends HTMLElement>(
-  threshold = 0.15
+  threshold = 0
 ) {
   const ref = useRef<T>(null);
 
@@ -14,18 +17,49 @@ export function useScrollAnimation<T extends HTMLElement>(
     const el = ref.current;
     if (!el) return;
 
+    let revealed = false;
+
+    const reveal = () => {
+      if (!revealed) {
+        revealed = true;
+        el.classList.add("visible");
+      }
+    };
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          el.classList.add("visible");
+          reveal();
           observer.unobserve(el);
         }
       },
-      { threshold }
+      { threshold, rootMargin: "80px 0px" }
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+
+    // Fallback: if element is already in or above viewport on mount, reveal immediately
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight + 100 && rect.bottom > -100) {
+      // Element is near or in viewport — give animation time, then force
+      const fallbackTimer = setTimeout(reveal, 800);
+      return () => {
+        clearTimeout(fallbackTimer);
+        observer.disconnect();
+      };
+    }
+
+    // Safety fallback: reveal after 5 seconds no matter what
+    const safetyTimer = setTimeout(() => {
+      if (!revealed) {
+        reveal();
+      }
+    }, 5000);
+
+    return () => {
+      clearTimeout(safetyTimer);
+      observer.disconnect();
+    };
   }, [threshold]);
 
   return ref;
@@ -37,7 +71,7 @@ export function useScrollAnimation<T extends HTMLElement>(
 export function useStaggerAnimation<T extends HTMLElement>(
   childSelector: string,
   staggerDelay = 0.12,
-  threshold = 0.15
+  threshold = 0
 ) {
   const ref = useRef<T>(null);
 
@@ -57,7 +91,7 @@ export function useStaggerAnimation<T extends HTMLElement>(
           observer.unobserve(el);
         }
       },
-      { threshold }
+      { threshold, rootMargin: "80px 0px" }
     );
 
     observer.observe(el);
@@ -109,7 +143,7 @@ export function useCountUp(
           observer.unobserve(el);
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.3, rootMargin: "50px 0px" }
     );
 
     observer.observe(el);
