@@ -23,7 +23,7 @@ export default function Trainer() {
         <div className="relative h-[450px] md:h-[600px] overflow-hidden">
           <Image
             src="/images/trainer.jpg"
-            alt="トレーナー 青山 健二"
+            alt="ANVIL代表トレーナー 青山健二のプロフィール写真"
             fill
             className="object-cover object-top"
             sizes="(max-width: 768px) 100vw, 40vw"

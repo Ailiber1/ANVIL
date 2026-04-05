@@ -10,7 +10,7 @@ export default function Hero() {
       {/* Background */}
       <Image
         src="/images/hero.jpg"
-        alt="ANVILトレーニング風景"
+        alt="ANVILパーソナルトレーニングスタジオ内でトレーニングを行う様子"
         fill
         priority
         className="object-cover"
@@ -49,6 +49,7 @@ export default function Hero() {
           href={LINE_URL}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="LINEで予約する"
           className="inline-flex items-center gap-2 text-warmgray text-xs hover:text-line-green transition-colors"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="text-line-green">

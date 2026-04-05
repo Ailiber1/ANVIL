@@ -49,7 +49,7 @@ function ProgramItem({ program, index }: { program: typeof PROGRAMS[0]; index: n
       >
         <Image
           src={program.image}
-          alt={program.title}
+          alt={`${program.subtitle}プログラムのトレーニングイメージ`}
           fill
           className="object-cover"
           sizes="(max-width: 768px) 100vw, 50vw"

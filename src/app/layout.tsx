@@ -20,6 +20,15 @@ export const metadata: Metadata = {
   title: "ANVIL - パーソナルトレーニングスタジオ",
   description:
     "完全予約制・完全個室のパーソナルトレーニングスタジオ。あなたの理想の身体を、科学的アプローチで実現します。",
+  openGraph: {
+    title: "ANVIL - パーソナルトレーニングスタジオ",
+    description:
+      "鍛えるのは、体だけじゃない。完全マンツーマンのパーソナルトレーニング。",
+    url: "https://anvil.previo.workers.dev",
+    siteName: "ANVIL",
+    locale: "ja_JP",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

@@ -18,7 +18,7 @@ export default function Studio() {
       <div ref={ref} className="fade-in-up relative w-full h-[400px] md:h-[600px] overflow-hidden">
         <Image
           src="/images/facility.jpg"
-          alt="ANVIL施設"
+          alt="ANVILの完全個室トレーニングスタジオ内観"
           fill
           className="object-cover"
           sizes="100vw"

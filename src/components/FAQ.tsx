@@ -62,6 +62,7 @@ function FAQItem({ faq, index }: { faq: typeof FAQS[0]; index: number }) {
       <button
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between py-6 text-left group"
+        aria-expanded={open}
       >
         <span className="text-offwhite text-sm md:text-base pr-4 group-hover:text-gold transition-colors duration-300">
           {faq.q}

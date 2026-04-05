@@ -16,7 +16,7 @@ export default function Concept() {
         <div className="relative h-[400px] md:h-[500px] overflow-hidden">
           <Image
             src="/images/concept.jpg"
-            alt="ANVILのコンセプト"
+            alt="トレーニングを通じて姿勢と自信が変わるコンセプトイメージ"
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 50vw"
