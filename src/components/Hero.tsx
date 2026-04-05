@@ -7,18 +7,23 @@ const LINE_URL = process.env.NEXT_PUBLIC_LINE_URL || "https://line.me/R/ti/p/@an
 
 export default function Hero() {
   const [phase, setPhase] = useState(0);
+  // phase 0: nothing
+  // phase 1: bg zoom starts
+  // phase 2: line1 "鍛えるのは、" sweeps in
+  // phase 3: line2 "体だけじゃない" SLAMS + flash + period drops
+  // phase 4: rest fades in
 
   useEffect(() => {
     const t1 = setTimeout(() => setPhase(1), 100);
-    const t2 = setTimeout(() => setPhase(2), 600);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
+    const t2 = setTimeout(() => setPhase(2), 700);
+    const t3 = setTimeout(() => setPhase(3), 1600);
+    const t4 = setTimeout(() => setPhase(4), 2400);
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
   }, []);
-
-  const show = phase >= 2;
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with slow zoom */}
+      {/* Background */}
       <div className="absolute inset-0">
         <Image
           src="/images/hero.jpg"
@@ -33,31 +38,23 @@ export default function Hero() {
       </div>
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/85" />
 
-      {/* Giant ANVIL watermark */}
-      <div
-        className={`absolute inset-0 flex items-center justify-center pointer-events-none select-none transition-all duration-[3s] ease-out ${
-          show ? "opacity-[0.03]" : "opacity-0"
-        }`}
-      >
-        <span className="font-[family-name:var(--font-cormorant)] text-offwhite text-[30vw] md:text-[24vw] font-bold tracking-[0.2em] leading-none">
-          ANVIL
-        </span>
+      {/* Giant watermark */}
+      <div className={`absolute inset-0 flex items-center justify-center pointer-events-none select-none transition-all duration-[3s] ease-out ${phase >= 4 ? "opacity-[0.03]" : "opacity-0"}`}>
+        <span className="font-[family-name:var(--font-cormorant)] text-offwhite text-[30vw] md:text-[24vw] font-bold tracking-[0.2em] leading-none">ANVIL</span>
       </div>
 
-      {/* Side decorative — desktop only */}
-      <div className={`absolute left-6 md:left-12 top-1/2 -translate-y-1/2 hidden md:flex flex-col items-center gap-6 transition-all duration-1000 ${show ? "opacity-100" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "1.8s" }}>
+      {/* Side decorative */}
+      <div className={`absolute left-6 md:left-12 top-1/2 -translate-y-1/2 hidden md:flex flex-col items-center gap-6 transition-all duration-1000 ${phase >= 4 ? "opacity-100" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "0.5s" }}>
         <div className="w-px h-16 bg-gold/30" />
-        <span className="text-gold/50 text-[9px] tracking-[0.3em] font-[family-name:var(--font-cormorant)] [writing-mode:vertical-rl]">
-          PERSONAL TRAINING
-        </span>
+        <span className="text-gold/50 text-[9px] tracking-[0.3em] font-[family-name:var(--font-cormorant)] [writing-mode:vertical-rl]">PERSONAL TRAINING</span>
         <div className="w-px h-16 bg-gold/30" />
       </div>
 
       {/* ====== CONTENT ====== */}
       <div className="relative z-10 text-center px-6 max-w-[1100px] mx-auto">
 
-        {/* Overline */}
-        <div className={`hero-reveal ${show ? "hero-visible" : ""}`} style={{ transitionDelay: "0s" }}>
+        {/* Overline — appears with line1 */}
+        <div className={`transition-all duration-700 ${phase >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}`}>
           <div className="flex items-center justify-center gap-4 mb-10 md:mb-14">
             <div className="w-8 md:w-14 h-px bg-gold/50" />
             <p className="font-[family-name:var(--font-cormorant)] text-gold/70 text-[10px] md:text-[11px] tracking-[0.5em] uppercase">
@@ -67,41 +64,64 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* ===== HEADLINE — AWARD-LEVEL TYPOGRAPHY ===== */}
-        {/* Line 1: 鍛えるのは、 — lighter, wider tracking */}
-        <div className={`hero-reveal ${show ? "hero-visible" : ""}`} style={{ transitionDelay: "0.3s" }}>
-          <p className="font-[family-name:var(--font-noto)] text-offwhite/80 text-[1.1rem] sm:text-[1.3rem] md:text-[1.5rem] font-light tracking-[0.25em] md:tracking-[0.35em] mb-3 md:mb-4">
-            鍛えるのは、
-          </p>
+        {/* ===== LINE 1: 鍛えるのは、 — sweeps in softly ===== */}
+        <div className="mb-3 md:mb-4 overflow-hidden">
+          {phase >= 2 && (
+            <p className="hero-line1 font-[family-name:var(--font-noto)] text-offwhite/80 text-[1.1rem] sm:text-[1.3rem] md:text-[1.5rem] font-light tracking-[0.35em]">
+              鍛えるのは、
+            </p>
+          )}
         </div>
 
-        {/* Line 2: 体だけじゃない。 — MASSIVE, bold, gold accent */}
-        <div className={`hero-reveal ${show ? "hero-visible" : ""}`} style={{ transitionDelay: "0.5s" }}>
-          <h1 className="relative inline-block">
-            <span className="font-[family-name:var(--font-noto)] text-[2.8rem] sm:text-[3.5rem] md:text-[5rem] lg:text-[6.5rem] font-black leading-[1.05] tracking-[0.02em] text-offwhite whitespace-nowrap">
-              体だけじゃない
-            </span>
-            {/* Gold period — oversized accent */}
-            <span className="font-[family-name:var(--font-cormorant)] text-gold text-[3.5rem] sm:text-[4.5rem] md:text-[6rem] lg:text-[8rem] font-light leading-none align-baseline inline-block translate-y-[0.05em]">
-              .
-            </span>
-          </h1>
+        {/* ===== LINE 2: 体だけじゃない — IMPACT SLAM ===== */}
+        <div className="relative mb-5 md:mb-7">
+          {/* Impact flash glow behind text */}
+          {phase >= 3 && (
+            <div className="impact-flash absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="w-[80%] h-[120%] bg-gold/10 rounded-full blur-3xl" />
+            </div>
+          )}
+
+          {phase >= 3 && (
+            <h1 className="relative inline-block">
+              <span className="hero-line2 font-[family-name:var(--font-noto)] text-[2.8rem] sm:text-[3.5rem] md:text-[5rem] lg:text-[6.5rem] font-black leading-[1.05] tracking-[0.02em] text-offwhite whitespace-nowrap">
+                体だけじゃない
+              </span>
+              {/* Gold period — drops in with bounce after slam */}
+              <span
+                className="hero-period font-[family-name:var(--font-cormorant)] text-gold text-[3.5rem] sm:text-[4.5rem] md:text-[6rem] lg:text-[8rem] font-light leading-none align-baseline inline-block translate-y-[0.05em]"
+                style={{ animationDelay: "0.4s" }}
+              >
+                .
+              </span>
+            </h1>
+          )}
+
+          {/* Underline sweep — gold line under the headline */}
+          {phase >= 3 && (
+            <div className="flex justify-center mt-4 md:mt-5">
+              <div
+                className="hero-underline h-[2px] w-20 md:w-28 bg-gradient-to-r from-gold/60 to-gold/20"
+                style={{ animationDelay: "0.5s" }}
+              />
+            </div>
+          )}
         </div>
 
-        {/* English accent — positioned as design element */}
-        <div className={`hero-reveal ${show ? "hero-visible" : ""}`} style={{ transitionDelay: "0.7s" }}>
-          <p className="font-[family-name:var(--font-cormorant)] text-gold/30 text-[11px] md:text-[13px] tracking-[0.4em] italic mt-5 md:mt-7 mb-10 md:mb-14 uppercase">
+        {/* English accent */}
+        <div className={`transition-all duration-800 ${phase >= 4 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "0s" }}>
+          <p className="font-[family-name:var(--font-cormorant)] text-gold/30 text-[11px] md:text-[13px] tracking-[0.4em] italic mb-10 md:mb-14 uppercase">
             Forge your body &mdash; Shape your life
           </p>
         </div>
 
         {/* Divider */}
-        <div className={`hero-reveal ${show ? "hero-visible" : ""}`} style={{ transitionDelay: "0.85s" }}>
+        <div className={`transition-all duration-700 ${phase >= 4 ? "opacity-100" : "opacity-0"}`} style={{ transitionDelay: "0.15s" }}>
           <div className="w-16 h-px bg-gold/30 mx-auto mb-10 md:mb-12" />
         </div>
 
         {/* Sub copy */}
-        <div className={`hero-reveal ${show ? "hero-visible" : ""}`} style={{ transitionDelay: "1s" }}>
+        <div className={`transition-all duration-800 ${phase >= 4 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "0.3s" }}>
           <p className="text-warmgray/70 text-[12px] md:text-[14px] leading-[2.4] mb-12 md:mb-16 max-w-[500px] mx-auto tracking-[0.03em]">
             姿勢、自信、習慣、人生。
             <br />
@@ -112,7 +132,7 @@ export default function Hero() {
         </div>
 
         {/* CTA */}
-        <div className={`hero-reveal ${show ? "hero-visible" : ""}`} style={{ transitionDelay: "1.2s" }}>
+        <div className={`transition-all duration-700 ${phase >= 4 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "0.5s" }}>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <a
               href="/contact"
@@ -131,7 +151,7 @@ export default function Hero() {
         </div>
 
         {/* LINE */}
-        <div className={`hero-reveal ${show ? "hero-visible" : ""}`} style={{ transitionDelay: "1.4s" }}>
+        <div className={`transition-all duration-700 ${phase >= 4 ? "opacity-100" : "opacity-0"}`} style={{ transitionDelay: "0.7s" }}>
           <a
             href={LINE_URL}
             target="_blank"
@@ -148,13 +168,8 @@ export default function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <div
-        className={`absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 hero-reveal ${show ? "hero-visible" : ""}`}
-        style={{ transitionDelay: "2s" }}
-      >
-        <span className="text-warmgray/40 text-[8px] tracking-[0.4em] font-[family-name:var(--font-cormorant)] uppercase">
-          Scroll
-        </span>
+      <div className={`absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 transition-all duration-700 ${phase >= 4 ? "opacity-100" : "opacity-0"}`} style={{ transitionDelay: "1s" }}>
+        <span className="text-warmgray/40 text-[8px] tracking-[0.4em] font-[family-name:var(--font-cormorant)] uppercase">Scroll</span>
         <div className="w-px h-14 bg-warmgray/15 relative overflow-hidden">
           <div className="w-full h-5 bg-gold/30 animate-scroll-bounce" />
         </div>
